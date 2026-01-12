@@ -1,13 +1,6 @@
-use std::f32::consts::E;
+use leptos::prelude::*;
 
-use leptos::{ev::MouseEvent, html::HtmlElement, prelude::*, tachys::view};
-
-#[component]
-pub fn SocialWidget(
-    platform: String,
-    url: String,
-    visibility: Option<ReadSignal<bool>>,
-) -> impl IntoView {
+pub fn github_project<'a>(project_name: &'a str, url: &'a str) -> impl IntoView {
     view! {
         <a href=url target="_blank">
             <div
@@ -17,27 +10,19 @@ pub fn SocialWidget(
                 style:background="#171717"
                 style:border="1px solid #2a2a2a"
                 style:border-radius="12px"
-                style:padding="16px 16px"
+                style:padding="14px 16px"
                 style:margin="15px auto 15px auto"
-                style:max-width="80%"
+                style:max-width="60%"
                 style:webkit-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                 style:moz-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                 style:box-shadow="0px 0px 6px 2px rgba(125,41,173,0.44)"
                 style:font-family="sans-serif"
                 style:font-weight="600"
-                style:visibility=move || match visibility {
-                    Some(visibility) => {
-                        if visibility.get() { "visible".to_string() } else { "hidden".to_string() }
-                    }
-                    None => "true".to_string(),
-                }
+                style:text-decoration="none"
+                style:color="white"
             >
-
                 // style:color="#eee"
-
-                <span style:text-decoration="none" style:color="white">
-                    {platform}
-                </span>
+                {project_name}
 
             </div>
         </a>
