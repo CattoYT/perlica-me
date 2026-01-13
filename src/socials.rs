@@ -9,7 +9,17 @@ pub fn SocialWidget(
     visibility: Option<ReadSignal<bool>>,
 ) -> impl IntoView {
     view! {
-        <a href=url target="_blank">
+        <a
+            href=url
+            target="_blank"
+            style:visibility=move || match visibility {
+                Some(visibility) => {
+                    if visibility.get() { "visible".to_string() } else { "hidden".to_string() }
+                }
+                None => "true".to_string(),
+            }
+        >
+            // make the things unclickable when invisible
             <div
                 style:text-align="center"
 
@@ -25,12 +35,6 @@ pub fn SocialWidget(
                 style:box-shadow="0px 0px 6px 2px rgba(125,41,173,0.44)"
                 style:font-family="sans-serif"
                 style:font-weight="600"
-                style:visibility=move || match visibility {
-                    Some(visibility) => {
-                        if visibility.get() { "visible".to_string() } else { "hidden".to_string() }
-                    }
-                    None => "true".to_string(),
-                }
             >
 
                 // style:color="#eee"
