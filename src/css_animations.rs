@@ -48,12 +48,33 @@ pub fn slide_in_socials() -> impl IntoView {
             }
             @keyframes slideIn {
                 from { opacity: 0; transform: translateX(-16px); }
-                to   { opacity: 1; transform: translateX(0); }
+                to   { opacity: 1; transform: translateX(0px); }
             }
             
             
             
             " {staggered_css}
+        </style>
+    }
+}
+
+#[component]
+pub fn slide_down_out() -> impl IntoView {
+    view! {
+        <style>
+            "
+            .slide-down-out {
+                opacity: 1;
+                animation: SlideDownOut 1s cubic-bezier(0.80, -0.35, 0.75, 0.89) forwards;
+            }
+            @keyframes SlideDownOut {
+                from { opacity: 1; bottom: 24px; }
+                to   { opacity: 0; bottom: -100px; }
+            }
+            
+            
+            
+            "
         </style>
     }
 }

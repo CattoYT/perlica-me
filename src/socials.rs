@@ -22,7 +22,6 @@ pub fn SocialWidget(
             // make the things unclickable when invisible
             <div
                 style:text-align="center"
-
                 style:gap="12px"
                 style:background="#171717"
                 style:border="1px solid #2a2a2a"
