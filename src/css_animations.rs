@@ -3,6 +3,7 @@ use leptos::prelude::*;
 pub fn fade_in_github_projects() -> impl IntoView {
     view! {
         <style>
+            // todo: make this cascade as well
             "
             .fade-in {
               --i: 0;
@@ -10,12 +11,11 @@ pub fn fade_in_github_projects() -> impl IntoView {
               animation: fadeIn 0.5s ease-out forwards;
               animation-delay: calc(var(--i) * 0.1s);
             }
+            
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(8px); }
                 to   { opacity: 1; transform: translateY(0); }
             }
-            
-            
             
             "
 
