@@ -10,11 +10,11 @@ use leptos_meta::*;
 use crate::css_animations::{FadeInGithubProjects, SlideDownOut, SlideInSocials};
 use crate::socials::github_projects::GithubProjects;
 use crate::socials::social_widget::SocialWidget;
+use crate::socials::spotify::SpotifyTracks;
 mod body;
 mod css_animations;
 mod demo;
 mod socials;
-mod style;
 
 fn main() {
     mount_to_body(AppRoot);
@@ -26,6 +26,7 @@ fn AppRoot() -> impl IntoView {
 
     let (show_github, set_github_state) = signal(false);
     let (show_github_button_animate, start_github_button_animate) = signal(false);
+    let (show_spotify, set_spotify_state) = signal(false);
 
     let (on_load, set_load) = signal(true);
     window_event_listener(ev::load, move |_| {
@@ -36,7 +37,12 @@ fn AppRoot() -> impl IntoView {
 
     view! {
         <SlideInSocials />
-        <main>
+        <main
+            style:font-family="cursive"
+            style:padding="16px 16px"
+            style:margin="15px auto 15px auto"
+            style:max-width="40%"
+        >
 
             <body::BodyMods />
             <div style:text-align="center" class:cascade-on-load=on_load>
@@ -55,13 +61,13 @@ fn AppRoot() -> impl IntoView {
                         <div
                             style:position="fixed"
                             style:bottom="24px"
-                            style:left="-10%"
-                            style:right="0"
+                            // style:left="-10%"
+                            style:left="40%"
                             style:display="flex"
                             style:justify-content="center"
                             style:opacity="1"
                             style:z-index="9999"
-                            style:max-width="auto"
+                            style:max-width="fit-content"
                             class:slide-down-out=show_github_button_animate
                         >
 
@@ -93,16 +99,16 @@ fn AppRoot() -> impl IntoView {
                         <div
                             style:position="fixed"
                             style:bottom="24px"
-                            style:left="10%"
-                            style:right="0"
+                            style:right="40%"
+                            // style:right="0"
                             style:display="flex"
                             style:justify-content="center"
+
                             style:opacity="1"
                             style:z-index="9999"
-                            style:max-width="auto"
-                            class:slide-down-out=show_github_button_animate
+                            style:max-width="fit-content"
+                            class:slide-down-out=show_spotify
                         >
-
                             <button
                                 style:text-align="center"
                                 style:background="#171717"
@@ -119,8 +125,7 @@ fn AppRoot() -> impl IntoView {
 
                                 on:click=move |_| {
                                     console_debug_log("should have written");
-                                    *set_github_state.write() = true;
-                                    *start_github_button_animate.write() = true;
+                                    *set_spotify_state.write() = true;
                                 }
                             >
                                 "Show Spotify"
@@ -148,5 +153,13 @@ fn AppRoot() -> impl IntoView {
             </div>
 
         </main>
+        // SPotify overlay
+        <Show when=move || { show_spotify.get() }>
+
+            <div style:font-family="cursive" style:position="fixed" style:right="3%">
+                <SpotifyTracks show_spotify_playlist=show_spotify />
+            </div>
+
+        </Show>
     }
 }

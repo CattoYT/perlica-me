@@ -62,10 +62,11 @@ pub fn slide_in_socials() -> impl IntoView {
 pub fn slide_down_out() -> impl IntoView {
     view! {
         <style>
+            // I don't like the delay, could make it start a little earlioer in the curve?
             "
             .slide-down-out {
                 opacity: 1;
-                animation: SlideDownOut 1s cubic-bezier(0.80, -0.35, 0.75, 0.89) forwards;
+                animation: SlideDownOut 1s cubic-bezier(0.80, -0.35, 0.75, 0.89) forwards; 
             }
             @keyframes SlideDownOut {
                 from { opacity: 1; bottom: 24px; }
@@ -75,6 +76,38 @@ pub fn slide_down_out() -> impl IntoView {
             
             
             "
+        </style>
+    }
+}
+
+#[component]
+pub fn slide_in_spotify() -> impl IntoView {
+    let max_items = 50;
+    let staggered_css = (1..=max_items)
+        .map(|i| {
+            format!(
+                ".cascade-slide-in-spotify > *:nth-child({}) {{ animation-delay: {:.1}s; }}",
+                i,
+                i as f64 * 0.1
+            )
+        })
+        .collect::<String>();
+
+    view! {
+        <style>
+            "
+            .cascade-slide-in-spotify > * {
+              opacity: 0;
+              animation: slideIn 0.5s ease-out forwards;
+            }
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateX(16px); }
+                to   { opacity: 1; transform: translateX(0px); }
+            }
+            
+            
+            
+            " {staggered_css}
         </style>
     }
 }

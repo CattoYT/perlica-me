@@ -1,44 +1,44 @@
 use leptos::prelude::*;
 
-use crate::{socials::github_projects, FadeInGithubProjects};
+use crate::{css_animations::SlideInSpotify, socials::github_projects, FadeInGithubProjects};
 
 #[component]
-fn SpotifyTracks(show_spotify_playlist: ReadSignal<bool>) -> impl IntoView {
+pub fn SpotifyTracks(show_spotify_playlist: ReadSignal<bool>) -> impl IntoView {
     view! {
-            <Show
-      when=move || { show_spotify_playlist.get() }
-      fallback=|| view! { }
-    >
-          <FadeInGithubProjects /> //reuse cuz i mean it works right XD
-                  <div>
-                      <h3
-                          class:fade-in=show_spotify_playlist
-                          style:opacity="0.0"
-                          style:--i="0"
-                          style:color="white"
-                          style:font-size="24px"
-                          style:font-weight="bold"
-                      >
 
-                          "Github projects (That i'm proud of)"
-                      </h3>
+    <SlideInSpotify /> //reuse cuz i mean it works right XD
+            <div class:cascade-slide-in-spotify=show_spotify_playlist>
+                <h3
+                    // class:fade-in=show_spotify_playlist
+                    style:opacity="0.0"
+                    style:--i="0"
+                    style:color="white"
+                    style:font-size="24px"
+                    style:font-weight="bold"
+                >
 
-                      <div class:fade-in=show_spotify_playlist style:opacity="0.0" style:--i="1">
-                          {spotify_widget(
-                              "Relax",
-                              "https://open.spotify.com/playlist/0y0qg8RpeWIZEXOY6zNlHP",
-                          )}
-                      </div>
-                      <div class:fade-in=show_spotify_playlist style:opacity="0.0" style:--i="2">
-                          {spotify_widget(
-                              "Azuyori.dev (This website!)",
-                              "https://github.com/cattoyt/azuyori-dev",
-                          )}
+                    "My spotify playlists"
+                </h3>
 
-                      </div>
-                  </div>
-                </Show>
-                  }
+                <div
+                // class:fade-in=show_spotify_playlist
+                style:opacity="0.0" style:--i="1">
+                    {spotify_widget(
+                        "Relax",
+                        "https://open.spotify.com/playlist/0y0qg8RpeWIZEXOY6zNlHP",
+                    )}
+                </div>
+                                <div
+                // class:fade-in=show_spotify_playlist
+                style:opacity="0.0" style:--i="2">
+                    {spotify_widget(
+                        "Bebision",
+                        "https://open.spotify.com/playlist/2pD4F2gaDVdPWkS5P7NEo4",
+                    )}
+
+                </div>
+            </div>
+            }
 }
 
 fn spotify_widget<'a>(project_name: &'a str, url: &'a str) -> impl IntoView {
