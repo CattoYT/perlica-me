@@ -40,7 +40,7 @@ jobs:
         run: ./trunk build --release
 
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@@v1 # TODO: switch this to the non deprecated one
+        uses: cloudflare/pages-action@v1 # TODO: switch this to the non deprecated one
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
