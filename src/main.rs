@@ -156,7 +156,12 @@ fn AppRoot() -> impl IntoView {
         // SPotify overlay
         <Show when=move || { show_spotify.get() }>
 
-            <div style:font-family="cursive" style:position="fixed" style:right="3%">
+            <div
+                style:font-family="cursive"
+                style:position="fixed"
+                style:right="3%"
+                style:bottom="5%"
+            >
                 <SpotifyTracks show_spotify_playlist=show_spotify />
             </div>
 
