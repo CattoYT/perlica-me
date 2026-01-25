@@ -26,6 +26,8 @@ pub fn SpotifyTracks(show_spotify_playlist: ReadSignal<bool>) -> impl IntoView {
                     {spotify_widget(
                         "Relax",
                         "https://open.spotify.com/playlist/0y0qg8RpeWIZEXOY6zNlHP",
+
+
                     )}
                 </div>
                                 <div

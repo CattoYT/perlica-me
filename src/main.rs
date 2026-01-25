@@ -1,3 +1,7 @@
+use std::sync::Arc;
+use std::thread::sleep;
+use std::time::Duration;
+
 use leptos::attr::onload;
 use leptos::ev::{self, on, PageTransitionEvent};
 use leptos::html::{button, Portal};
@@ -20,6 +24,27 @@ fn main() {
     mount_to_body(AppRoot);
 }
 
+#[derive(Clone)]
+enum ButtonVisibilityStatus {
+    Shown,
+    Hidden,
+}
+
+impl ButtonVisibilityStatus {
+    fn toggle_visibility(mut self) {
+        match self {
+            ButtonVisibilityStatus::Hidden => self = ButtonVisibilityStatus::Shown,
+            ButtonVisibilityStatus::Shown => self = ButtonVisibilityStatus::Hidden,
+        }
+    }
+    fn get_opposite(thing: &ButtonVisibilityStatus) -> ButtonVisibilityStatus {
+        match thing {
+            ButtonVisibilityStatus::Hidden => ButtonVisibilityStatus::Shown,
+            ButtonVisibilityStatus::Shown => ButtonVisibilityStatus::Hidden,
+        }
+    }
+}
+
 #[component]
 fn AppRoot() -> impl IntoView {
     provide_meta_context();
@@ -32,6 +57,9 @@ fn AppRoot() -> impl IntoView {
     window_event_listener(ev::load, move |_| {
         &set_load.set(true);
     });
+
+    let (spotify_button_visibility, set_spotify_button_visibility) =
+        signal(ButtonVisibilityStatus::Shown);
 
     // animations
 
@@ -54,8 +82,6 @@ fn AppRoot() -> impl IntoView {
 
                 // social widgets
                 {move || {
-                    // (!show_github.get())
-                    // .then(|| {
                     view! {
                         <SlideDownOut />
                         <div
@@ -123,12 +149,23 @@ fn AppRoot() -> impl IntoView {
                                 style:color="White"
                                 style:font-weight="800"
 
+                                // TODO: switch this after a delay so that whenever i animate it coming back up it will show hide spotify instead
                                 on:click=move |_| {
                                     console_debug_log("should have written");
-                                    *set_spotify_state.write() = true;
+                                    let spotifyono = !show_spotify.read().clone();
+                                    *set_spotify_state.write() = spotifyono;
                                 }
                             >
-                                "Show Spotify"
+
+                                // {match spotify_button_visibility.get() {
+                                // ButtonVisibilityStatus::Hidden => "Hide Spotify",
+                                // ButtonVisibilityStatus::Shown => "Show Spotify",
+                                // }}
+                                {match show_spotify.get() {
+                                    true => "Hide Spotify",
+                                    false => "Show Spotify",
+                                }}
+
                             </button>
                         </div>
                     }
