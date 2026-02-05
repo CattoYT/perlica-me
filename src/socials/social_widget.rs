@@ -36,8 +36,8 @@ pub fn SocialWidget(
                 style:webkit-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                 style:moz-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                 style:box-shadow="0px 0px 6px 2px rgba(125,41,173,0.44)"
-                style:font-family="sans-serif"
-                style:font-weight="600"
+                style:font-family="\"Montserrat\", sans-serif"
+                style:font-weight="700"
             >
 
                 // style:color="#eee"

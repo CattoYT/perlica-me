@@ -8,13 +8,13 @@ use leptos::html::{button, Portal};
 use leptos::leptos_dom::logging::console_debug_log;
 use leptos::prelude::*;
 
-use leptos::mount::mount_to_body;
-use leptos_meta::*;
-
 use crate::css_animations::{FadeInGithubProjects, SlideDownOut, SlideInSocials};
 use crate::socials::github_projects::GithubProjects;
 use crate::socials::social_widget::SocialWidget;
 use crate::socials::spotify::SpotifyTracks;
+use leptos::mount::mount_to_body;
+use leptos_meta::*;
+use quad_rand as qrand;
 mod body;
 mod css_animations;
 mod demo;
@@ -51,6 +51,24 @@ fn AppRoot() -> impl IntoView {
         &set_load.set(true);
     });
 
+    let titles = vec![
+        "Failing to write rust since 2025",
+        "Perlica is really cute",
+        "Perlica x chen when",
+        "By Hikari/Kaeniya/CattoYT (I have too many names)",
+        "Totally not a paste of vedal.ai",
+        "Leptos made this take so long",
+        "I really should have just used astro for this site",
+        "Hi hack club reviewer!",
+    ];
+    qrand::srand(web_time::UNIX_EPOCH.elapsed().unwrap().as_nanos() as u64);
+
+    let index: usize = qrand::gen_range(0, titles.len());
+    let title = titles
+        .get(index)
+        .unwrap_or(&"Failing to write rust since 2025ssa");
+    console_debug_log(*title);
+    console_debug_log(&format!("{index}"));
     let (spotify_button_visibility, set_spotify_button_visibility) =
         signal(ButtonVisibilityStatus::Shown);
 
@@ -59,18 +77,23 @@ fn AppRoot() -> impl IntoView {
     view! {
         <SlideInSocials />
         <main
-            style:font-family="cursive"
+            style:font-family="\"Montserrat\", sans-serif"
+            style:font-weight="700"
+
             style:padding="16px 16px"
             style:margin="15px auto 15px auto"
             style:max-width="40%"
         >
-            <div style="
-            position: fixed;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: -1;
-            ">
+            <div
+                style="
+                position: fixed;
+                bottom: 5%;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: -1;
+                "
+                class:cascade-on-load=on_load
+            >
                 <img
                     src="/public/images/perlica.png"
                     width="60%"
@@ -82,7 +105,16 @@ fn AppRoot() -> impl IntoView {
             <div style:text-align="center" class:cascade-on-load=on_load>
 
                 <div style:color="white">
-                    <h1>"Perlica.me"</h1>
+                    <h1
+
+                        style:font-family="\"Montserrat\", sans-serif"
+
+                        style:font-weight="900"
+                        style:font-size="50px"
+                    >
+                        "Perlica.me"
+                    </h1>
+                    {title.to_owned()}
                 </div>
                 // <a href="https://youtube.com/@cattoyt">real</a>
 
@@ -113,7 +145,8 @@ fn AppRoot() -> impl IntoView {
                                 style:webkit-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                                 style:moz-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                                 style:box-shadow="0px 0px 6px 2px rgba(125,41,173,0.44)"
-                                style:font-family="sans-serif"
+                                style:font-family="\"Montserrat\", sans-serif"
+
                                 style:color="White"
                                 style:font-weight="800"
 
@@ -151,7 +184,8 @@ fn AppRoot() -> impl IntoView {
                                 style:webkit-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                                 style:moz-box-shadow="0px 0px 13px 2px rgba(125,41,173,0.9)"
                                 style:box-shadow="0px 0px 6px 2px rgba(125,41,173,0.44)"
-                                style:font-family="sans-serif"
+                                style:font-family="\"Montserrat\", sans-serif"
+
                                 style:color="White"
                                 style:font-weight="800"
 
@@ -175,18 +209,23 @@ fn AppRoot() -> impl IntoView {
                     }
                 }}
                 <SocialWidget
+                    platform="Github".to_string()
+                    url="https://github.com/cattoyt".to_string()
+                    visibility=None
+                />
+                <SocialWidget
                     platform="Youtube".to_string()
                     url="https://youtube.com/cattoyt".to_string()
                     visibility=None
                 />
                 <SocialWidget
-                    platform="Twitch".to_string()
-                    url="https://twitch.tv/vedal987".to_string()
+                    platform="Slack (HC)".to_string()
+                    url="https://hackclub.enterprise.slack.com/team/U0786TENDM5".to_string()
                     visibility=None
                 />
                 <SocialWidget
-                    platform="Github".to_string()
-                    url="https://github.com/cattoyt".to_string()
+                    platform="Twitter".to_string()
+                    url="https://x.com/kaeniya_iUA".to_string()
                     visibility=None
                 />
 
@@ -198,7 +237,8 @@ fn AppRoot() -> impl IntoView {
         <Show when=move || { show_spotify.get() }>
 
             <div
-                style:font-family="cursive"
+                style:font-family="\"Montserrat\", sans-serif"
+                style:font-weight="700"
                 style:position="fixed"
                 style:right="3%"
                 style:bottom="5%"

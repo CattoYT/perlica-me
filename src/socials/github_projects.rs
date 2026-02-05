@@ -15,8 +15,9 @@ fn github_project<'a>(project_name: &'a str, url: &'a str) -> impl IntoView {
                 style:margin="15px auto"
                 style:max-width="60%"
                 style:box-shadow="0px 0px 6px 2px rgba(125,41,173,0.44)"
-                style:font-family="sans-serif"
-                style:font-weight="600"
+                style:font-family="\"Montserrat\", sans-serif"
+                style:font-weight="700"
+
                 style:color="white"
             >
                 {project_name}

@@ -8,3 +8,5 @@ edition = "2024"
 leptos = { version = "0.8.15", features = ["csr"] }
 leptos_meta = { version = "0.8.5"}
 leptos_image = { version = "0.2" }
+quad-rand = "0.2.3"
+web-time = "1.1.0"
