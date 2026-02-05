@@ -66,11 +66,12 @@ pub fn slide_down_out() -> impl IntoView {
             "
             .slide-down-out {
                 opacity: 1;
-                animation: SlideDownOut 1s cubic-bezier(0.80, -0.35, 0.75, 0.89) forwards; 
+                animation: SlideDownOut 0.8s cubic-bezier(0.80, -0.35, 0.75, 0.89) forwards; 
             }
             @keyframes SlideDownOut {
-                from { opacity: 1; bottom: 24px; }
-                to   { opacity: 0; bottom: -100px; }
+                0% { opacity: 1; bottom: 24px; }
+                100%   { opacity: 0; bottom: -100px; }
+                // 100% { opacity: 1; bottom: 24px; }
             }
             
             

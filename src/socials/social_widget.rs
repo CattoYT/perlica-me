@@ -12,6 +12,10 @@ pub fn SocialWidget(
         <a
             href=url
             target="_blank"
+            style:display="block"
+            style:text-decoration="none"
+            style:text-decoration-line="none"
+            style:color="inherit"
             style:visibility=move || match visibility {
                 Some(visibility) => {
                     if visibility.get() { "visible".to_string() } else { "hidden".to_string() }

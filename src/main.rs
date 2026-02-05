@@ -31,12 +31,6 @@ enum ButtonVisibilityStatus {
 }
 
 impl ButtonVisibilityStatus {
-    fn toggle_visibility(mut self) {
-        match self {
-            ButtonVisibilityStatus::Hidden => self = ButtonVisibilityStatus::Shown,
-            ButtonVisibilityStatus::Shown => self = ButtonVisibilityStatus::Hidden,
-        }
-    }
     fn get_opposite(thing: &ButtonVisibilityStatus) -> ButtonVisibilityStatus {
         match thing {
             ButtonVisibilityStatus::Hidden => ButtonVisibilityStatus::Shown,
@@ -48,7 +42,6 @@ impl ButtonVisibilityStatus {
 #[component]
 fn AppRoot() -> impl IntoView {
     provide_meta_context();
-
     let (show_github, set_github_state) = signal(false);
     let (show_github_button_animate, start_github_button_animate) = signal(false);
     let (show_spotify, set_spotify_state) = signal(false);
@@ -71,12 +64,25 @@ fn AppRoot() -> impl IntoView {
             style:margin="15px auto 15px auto"
             style:max-width="40%"
         >
-
+            <div style="
+            position: fixed;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            ">
+                <img
+                    src="/public/images/perlica.png"
+                    width="60%"
+                    style="display: block; margin: auto;"
+                    alt="Test Image"
+                />
+            </div>
             <body::BodyMods />
             <div style:text-align="center" class:cascade-on-load=on_load>
 
                 <div style:color="white">
-                    <h1>"Azuyori.dev"</h1>
+                    <h1>"Perlica.me"</h1>
                 </div>
                 // <a href="https://youtube.com/@cattoyt">real</a>
 
@@ -149,7 +155,6 @@ fn AppRoot() -> impl IntoView {
                                 style:color="White"
                                 style:font-weight="800"
 
-                                // TODO: switch this after a delay so that whenever i animate it coming back up it will show hide spotify instead
                                 on:click=move |_| {
                                     console_debug_log("should have written");
                                     let spotifyono = !show_spotify.read().clone();
@@ -157,15 +162,14 @@ fn AppRoot() -> impl IntoView {
                                 }
                             >
 
-                                // {match spotify_button_visibility.get() {
-                                // ButtonVisibilityStatus::Hidden => "Hide Spotify",
-                                // ButtonVisibilityStatus::Shown => "Show Spotify",
-                                // }}
-                                {match show_spotify.get() {
-                                    true => "Hide Spotify",
-                                    false => "Show Spotify",
+                                {match spotify_button_visibility.get() {
+                                    ButtonVisibilityStatus::Hidden => "Hide Spotify",
+                                    ButtonVisibilityStatus::Shown => "Show Spotify",
                                 }}
-
+                            // {match show_spotify.get() {
+                            // true => "Hide Spotify",
+                            // false => "Show Spotify",
+                            // }}
                             </button>
                         </div>
                     }

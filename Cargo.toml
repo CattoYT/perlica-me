@@ -7,3 +7,4 @@ edition = "2024"
 
 leptos = { version = "0.8.15", features = ["csr"] }
 leptos_meta = { version = "0.8.5"}
+leptos_image = { version = "0.2" }
